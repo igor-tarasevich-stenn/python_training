@@ -21,17 +21,18 @@ class SessionHelper:
         wd = self.app.wd
         # logout
         wd.find_element(By.LINK_TEXT, "Logout").click()
+        wd.find_element(By.NAME, "user")
 
     def ensure_logout(self):
         wd = self.app.wd
         if self.is_logged_in():
             self.logout()
 
-    def is_logged_in(self):
+    def is_logged_in_as(self, username):
         wd = self.app.wd
-        return
+        return wd.find_element(By.XPATH, "//div[@id='top']/form/b").text == "("+username+")"
 
-    def is_logged_in(self, username):
+    def is_logged_in(self):
         wd = self.app.wd
         return len(wd.find_elements(By.LINK_TEXT, "Logout")) > 0
 
